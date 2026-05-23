@@ -1,3 +1,17 @@
+<script>
+  // 改成你自己的密码
+  const correctPassword = "MySecret123";
+  const password = prompt("请输入访问密码：");
+
+  if (password !== correctPassword) {
+    alert("密码错误，无法访问！");
+    document.body.innerHTML = "";
+    document.write("<h1 style='text-align:center;margin-top:20%;'>访问被拒绝</h1>");
+  }
+</script>
+
+
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
