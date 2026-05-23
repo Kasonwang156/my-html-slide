@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>账号密码管理</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: "PingFang SC","Microsoft YaHei",sans-serif;
+    }
+
+    body{
+      background:#f5f7fb;
+      color:#333;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .layout{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* 左侧筛选栏 */
+    .sidebar{
+      width:260px;
+      background:#f7fbff;
+      border-right:1px solid #e8edf5;
+      padding:20px 16px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:30px;
+      font-size:22px;
+      font-weight:700;
+    }
+
+    .logo img{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+    }
+
+    .filter-group{
+      margin-bottom:30px;
+    }
+
+    .filter-title{
+      font-size:15px;
+      font-weight:700;
+      margin-bottom:14px;
+      color:#444;
+    }
+
+    .tag-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .tag{
+      padding:8px 14px;
+      border-radius:10px;
+      background:#fff;
+      border:1px solid #e5eaf3;
+      font-size:13px;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .tag:hover{
+      background:#eef5ff;
+      color:#2563eb;
+      border-color:#bfd4ff;
+    }
+
+    .tag.active{
+      background:#2563eb;
+      color:#fff;
+      border-color:#2563eb;
+    }
+
+    /* 主区域 */
+    .main{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* 顶部导航 */
+    .header{
+      height:72px;
+      background:#fff;
+      border-bottom:1px solid #e9edf5;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 32px;
+    }
+
+    .nav{
+      display:flex;
+      gap:40px;
+      font-size:15px;
+      color:#666;
+    }
+
+    .nav a.active{
+      color:#2563eb;
+      font-weight:700;
+      position:relative;
+    }
+
+    .nav a.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:-24px;
+      height:3px;
+      border-radius:3px;
+      background:#2563eb;
+    }
+
+    .login-btn{
+      background:#2563eb;
+      color:#fff;
+      border:none;
+      padding:10px 22px;
+      border-radius:22px;
+      cursor:pointer;
+      font-size:14px;
+    }
+
+    /* 内容区域 */
+    .content{
+      padding:24px;
+    }
+
+    .banner{
+      height:74px;
+      border-radius:16px;
+      background:linear-gradient(90deg,#dff0ff,#ffe7f4);
+      margin-bottom:24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 24px;
+    }
+
+    .banner h2{
+      font-size:20px;
+      margin-bottom:4px;
+    }
+
+    .banner p{
+      color:#666;
+      font-size:13px;
+    }
+
+    /* 搜索栏 */
+    .toolbar{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+    }
+
+    .search{
+      flex:1;
+      height:46px;
+      background:#fff;
+      border-radius:14px;
+      border:1px solid #e6ebf2;
+      padding:0 18px;
+      outline:none;
+      font-size:14px;
+    }
+
+    .copy-btn{
+      height:46px;
+      padding:0 22px;
+      border:none;
+      background:#2563eb;
+      color:#fff;
+      border-radius:12px;
+      cursor:pointer;
+    }
+
+    /* 卡片 */
+    .card-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+
+    .card{
+      background:#fff;
+      border-radius:18px;
+      border:1px solid #e8edf5;
+      padding:18px;
+      transition:.25s;
+      cursor:pointer;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 8px 30px rgba(0,0,0,.06);
+    }
+
+    .card-top{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:14px;
+    }
+
+    .model-title{
+      font-size:18px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:3px 10px;
+      background:#eef4ff;
+      color:#2563eb;
+      border-radius:999px;
+      font-size:12px;
+      margin-left:8px;
+    }
+
+    .account-info{
+      font-size:13px;
+      color:#666;
+      line-height:1.9;
+    }
+
+    .desc{
+      margin-top:14px;
+      font-size:13px;
+      color:#777;
+      line-height:1.7;
+      height:44px;
+      overflow:hidden;
+    }
+
+    .card-footer{
+      margin-top:18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .small-tags{
+      display:flex;
+      gap:8px;
+    }
+
+    .small-tag{
+      padding:4px 10px;
+      border-radius:8px;
+      background:#f4f6fa;
+      font-size:12px;
+      color:#666;
+    }
+
+    .status{
+      color:#10b981;
+      font-size:13px;
+    }
+
+    /* 分页 */
+    .pagination{
+      margin-top:34px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+    }
+
+    .page{
+      width:36px;
+      height:36px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+      border:1px solid #e6ebf2;
+      cursor:pointer;
+    }
+
+    .page.active{
+      background:#2563eb;
+      color:#fff;
+      border-color:#2563eb;
+    }
+
+    @media (max-width:1400px){
+      .card-grid{
+        grid-template-columns:repeat(3,1fr);
+      }
+    }
+
+    @media (max-width:1100px){
+      .sidebar{
+        display:none;
+      }
+
+      .card-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media (max-width:768px){
+      .card-grid{
+        grid-template-columns:1fr;
+      }
+
+      .nav{
+        display:none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- 左侧 -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <img src="https://picsum.photos/100" alt="">
+      账号密码管家
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-title">平台分类</div>
+
+      <div class="tag-list">
+        <div class="tag active">全部平台</div>
+        <div class="tag">QQ</div>
+        <div class="tag">微信</div>
+        <div class="tag">抖音</div>
+        <div class="tag">淘宝</div>
+        <div class="tag">京东</div>
+        <div class="tag">支付宝</div>
+        <div class="tag">微博</div>
+        <div class="tag">B站</div>
+        <div class="tag">小红书</div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-title">账号类型</div>
+
+      <div class="tag-list">
+        <div class="tag active">全部</div>
+        <div class="tag">社交</div>
+        <div class="tag">购物</div>
+        <div class="tag">支付</div>
+        <div class="tag">娱乐</div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-title">标签</div>
+
+      <div class="tag-list">
+        <div class="tag">常用</div>
+        <div class="tag">重要</div>
+        <div class="tag">已绑定</div>
+        <div class="tag">需更新</div>
+        <div class="tag">企业</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+
+    <!-- 顶部导航 -->
+    <header class="header">
+
+      <nav class="nav">
+        <a href="#">首页</a>
+        <a href="#">添加账号</a>
+        <a href="#" class="active">账号列表</a>
+        <a href="#">密码修改</a>
+        <a href="#">设置</a>
+      </nav>
+
+      <button class="login-btn">备份数据</button>
+
+    </header>
+
+    <!-- 内容 -->
+    <section class="content">
+
+      <div class="banner">
+        <div>
+          <h2>全部账号</h2>
+          <p>Total 28 个账号 · 管理所有平台账号密码</p>
+        </div>
+
+        <div style="font-size:30px;">🔐</div>
+      </div>
+
+      <div class="toolbar">
+        <input class="search" placeholder="搜索平台名称..." />
+        <button class="copy-btn">导出数据</button>
+      </div>
+
+      <!-- 卡片 -->
+      <div class="card-grid">
+
+        <!-- 卡片 - QQ -->
+        <div class="card">
+
+          <div class="card-top">
+            <div>
+              <div class="model-title">
+                QQ
+                <span class="badge">社交</span>
+              </div>
+
+              <div class="account-info">
+                账号：123456789<br/>
+                密码：**********<br/>
+                绑定手机：138****8888
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            常用QQ账号，绑定邮箱：123456@qq.com，密保问题已设置
+          </div>
+
+          <div class="card-footer">
+            <div class="small-tags">
+              <div class="small-tag">常用</div>
+              <div class="small-tag">重要</div>
+            </div>
+
+            <div class="status">https://im.qq.com/</div>
+          </div>
+
+        </div>
+
+        <!-- 卡片 - 微信 -->
+        <div class="card">
+
+          <div class="card-top">
+            <div>
+              <div class="model-title">
+                微信
+                <span class="badge">社交</span>
+              </div>
+
+              <div class="account-info">
+                账号：wx12345678<br/>
+                密码：**********<br/>
+                绑定手机：139****9999
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            个人微信主账号，已开启设备锁，关联公众号和小程序
+          </div>
+
+          <div class="card-footer">
+            <div class="small-tags">
+              <div class="small-tag">常用</div>
+              <div class="small-tag">已绑定</div>
+            </div>
+
+            <div class="status">https://weixin.qq.com/</div>
+          </div>
+
+        </div>
+
+        <!-- 卡片 - 抖音 -->
+        <div class="card">
+
+          <div class="card-top">
+            <div>
+              <div class="model-title">
+                抖音
+                <span class="badge">娱乐</span>
+              </div>
+
+              <div class="account-info">
+                账号：dy987654321<br/>
+                密码：**********<br/>
+                绑定手机：137****7777
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            抖音个人账号，已实名认证，绑定支付宝收款
+          </div>
+
+          <div class="card-footer">
+            <div class="small-tags">
+              <div class="small-tag">娱乐</div>
+              <div class="small-tag">常用</div>
+            </div>
+
+            <div class="status">https://www.douyin.com/</div>
+          </div>
+
+        </div>
+
+        <!-- 卡片 - 淘宝 -->
+        <div class="card">
+
+          <div class="card-top">
+            <div>
+              <div class="model-title">
+                淘宝
+                <span class="badge">购物</span>
+              </div>
+
+              <div class="account-info">
+                账号：tb123456789<br/>
+                密码：**********<br/>
+                绑定手机：136****6666
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            淘宝购物账号，绑定天猫、菜鸟，开通88VIP会员
+          </div>
+
+          <div class="card-footer">
+            <div class="small-tags">
+              <div class="small-tag">购物</div>
+              <div class="small-tag">需更新</div>
+            </div>
+
+            <div class="status">https://www.taobao.com/</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- 分页 -->
+      <div class="pagination">
+        <div class="page active">1</div>
+        <div class="page">2</div>
+        <div class="page">3</div>
+        <div class="page">4</div>
+        <div class="page">5</div>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+</body>
+</html>
