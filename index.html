@@ -1,6 +1,6 @@
 <script>
   // 改成你自己的密码
-  const correctPassword = "MySecret123";
+  const correctPassword = "123";
   const password = prompt("请输入访问密码：");
 
   if (password !== correctPassword) {
@@ -17,7 +17,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>账号密码管理</title>
+  <title>模型广场</title>
 
   <style>
     *{
@@ -254,7 +254,7 @@
       margin-left:8px;
     }
 
-    .account-info{
+    .price{
       font-size:13px;
       color:#666;
       line-height:1.9;
@@ -358,35 +358,33 @@
 
     <div class="logo">
       <img src="https://picsum.photos/100" alt="">
-      账号密码管家
+      小波API
     </div>
 
     <div class="filter-group">
-      <div class="filter-title">平台分类</div>
+      <div class="filter-title">供应商</div>
 
       <div class="tag-list">
-        <div class="tag active">全部平台</div>
-        <div class="tag">QQ</div>
-        <div class="tag">微信</div>
-        <div class="tag">抖音</div>
-        <div class="tag">淘宝</div>
-        <div class="tag">京东</div>
-        <div class="tag">支付宝</div>
-        <div class="tag">微博</div>
-        <div class="tag">B站</div>
-        <div class="tag">小红书</div>
+        <div class="tag active">全部供应商</div>
+        <div class="tag">OpenAI</div>
+        <div class="tag">Anthropic</div>
+        <div class="tag">Google</div>
+        <div class="tag">DeepSeek</div>
+        <div class="tag">Grok</div>
+        <div class="tag">Claude</div>
+        <div class="tag">Qwen</div>
       </div>
     </div>
 
     <div class="filter-group">
-      <div class="filter-title">账号类型</div>
+      <div class="filter-title">模型类型</div>
 
       <div class="tag-list">
         <div class="tag active">全部</div>
-        <div class="tag">社交</div>
-        <div class="tag">购物</div>
-        <div class="tag">支付</div>
-        <div class="tag">娱乐</div>
+        <div class="tag">对话</div>
+        <div class="tag">图像</div>
+        <div class="tag">视频</div>
+        <div class="tag">音频</div>
       </div>
     </div>
 
@@ -394,11 +392,11 @@
       <div class="filter-title">标签</div>
 
       <div class="tag-list">
-        <div class="tag">常用</div>
-        <div class="tag">重要</div>
-        <div class="tag">已绑定</div>
-        <div class="tag">需更新</div>
-        <div class="tag">企业</div>
+        <div class="tag">多模态</div>
+        <div class="tag">推理</div>
+        <div class="tag">代码</div>
+        <div class="tag">绘图</div>
+        <div class="tag">Agent</div>
       </div>
     </div>
 
@@ -412,13 +410,13 @@
 
       <nav class="nav">
         <a href="#">首页</a>
-        <a href="#">添加账号</a>
-        <a href="#" class="active">账号列表</a>
-        <a href="#">密码修改</a>
-        <a href="#">设置</a>
+        <a href="#">控制台</a>
+        <a href="#" class="active">模型广场</a>
+        <a href="#">联系我们</a>
+        <a href="#">API文档</a>
       </nav>
 
-      <button class="login-btn">备份数据</button>
+      <button class="login-btn">登录</button>
 
     </header>
 
@@ -427,149 +425,145 @@
 
       <div class="banner">
         <div>
-          <h2>全部账号</h2>
-          <p>Total 28 个账号 · 管理所有平台账号密码</p>
+          <h2>全部供应商</h2>
+          <p>Total 486 models · 查看所有可用 AI 模型</p>
         </div>
 
-        <div style="font-size:30px;">🔐</div>
+        <div style="font-size:30px;">🎵</div>
       </div>
 
       <div class="toolbar">
-        <input class="search" placeholder="搜索平台名称..." />
-        <button class="copy-btn">导出数据</button>
+        <input class="search" placeholder="搜索模型名称..." />
+        <button class="copy-btn">复制</button>
       </div>
 
       <!-- 卡片 -->
       <div class="card-grid">
 
-        <!-- 卡片 - QQ -->
+        <!-- 卡片 -->
         <div class="card">
 
           <div class="card-top">
             <div>
               <div class="model-title">
-                QQ
-                <span class="badge">社交</span>
+                gemini-3.5-flash
+                <span class="badge">文本</span>
               </div>
 
-              <div class="account-info">
-                账号：123456789<br/>
-                密码：**********<br/>
-                绑定手机：138****8888
+              <div class="price">
+                输入价格：¥2.25/M<br/>
+                输出价格：¥13.50/M
               </div>
             </div>
           </div>
 
           <div class="desc">
-            常用QQ账号，绑定邮箱：123456@qq.com，密保问题已设置
+            Gemini 3.5 Flash 已正式发布，适用于多模态与快速响应场景。
           </div>
 
           <div class="card-footer">
             <div class="small-tags">
-              <div class="small-tag">常用</div>
-              <div class="small-tag">重要</div>
+              <div class="small-tag">对话</div>
+              <div class="small-tag">工具</div>
             </div>
 
-            <div class="status">https://im.qq.com/</div>
+            <div class="status">● 按量计费</div>
           </div>
 
         </div>
 
-        <!-- 卡片 - 微信 -->
+        <!-- 卡片 -->
         <div class="card">
 
           <div class="card-top">
             <div>
               <div class="model-title">
-                微信
-                <span class="badge">社交</span>
+                gpt-image-2
+                <span class="badge">绘图</span>
               </div>
 
-              <div class="account-info">
-                账号：wx12345678<br/>
-                密码：**********<br/>
-                绑定手机：139****9999
+              <div class="price">
+                输入价格：¥3.00/M<br/>
+                输出价格：¥18.00/M
               </div>
             </div>
           </div>
 
           <div class="desc">
-            个人微信主账号，已开启设备锁，关联公众号和小程序
+            GPT Image 2 支持高质量图像生成、编辑与风格迁移。
           </div>
 
           <div class="card-footer">
             <div class="small-tags">
-              <div class="small-tag">常用</div>
-              <div class="small-tag">已绑定</div>
+              <div class="small-tag">绘图</div>
+              <div class="small-tag">AI</div>
             </div>
 
-            <div class="status">https://weixin.qq.com/</div>
+            <div class="status">● 按量计费</div>
           </div>
 
         </div>
 
-        <!-- 卡片 - 抖音 -->
+        <!-- 卡片 -->
         <div class="card">
 
           <div class="card-top">
             <div>
               <div class="model-title">
-                抖音
-                <span class="badge">娱乐</span>
+                qwen-image-2
+                <span class="badge">视觉</span>
               </div>
 
-              <div class="account-info">
-                账号：dy987654321<br/>
-                密码：**********<br/>
-                绑定手机：137****7777
+              <div class="price">
+                输入价格：¥0.26/M<br/>
+                输出价格：¥1.20/M
               </div>
             </div>
           </div>
 
           <div class="desc">
-            抖音个人账号，已实名认证，绑定支付宝收款
+            Qwen-Image 2 系列支持高精度中文图像理解与生成。
           </div>
 
           <div class="card-footer">
             <div class="small-tags">
-              <div class="small-tag">娱乐</div>
-              <div class="small-tag">常用</div>
+              <div class="small-tag">图像</div>
+              <div class="small-tag">视觉</div>
             </div>
 
-            <div class="status">https://www.douyin.com/</div>
+            <div class="status">● 按量计费</div>
           </div>
 
         </div>
 
-        <!-- 卡片 - 淘宝 -->
+        <!-- 卡片 -->
         <div class="card">
 
           <div class="card-top">
             <div>
               <div class="model-title">
-                淘宝
-                <span class="badge">购物</span>
+                claude-opus-4.7
+                <span class="badge">文本</span>
               </div>
 
-              <div class="account-info">
-                账号：tb123456789<br/>
-                密码：**********<br/>
-                绑定手机：136****6666
+              <div class="price">
+                输入价格：¥5.00/M<br/>
+                输出价格：¥25.00/M
               </div>
             </div>
           </div>
 
           <div class="desc">
-            淘宝购物账号，绑定天猫、菜鸟，开通88VIP会员
+            Claude Opus 系列大模型，擅长复杂推理与长文本任务。
           </div>
 
           <div class="card-footer">
             <div class="small-tags">
-              <div class="small-tag">购物</div>
-              <div class="small-tag">需更新</div>
+              <div class="small-tag">推理</div>
+              <div class="small-tag">Agent</div>
             </div>
 
-            <div class="status">https://www.taobao.com/</div>
+            <div class="status">● 按量计费</div>
           </div>
 
         </div>
