@@ -116,12 +116,13 @@ body{
 }
 
 .card-grid{
-  display:flex;
-  flex-direction:column;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
   gap:15px;
 }
 
 .card{
+  min-height:230px;
   background:#fff;
   border-radius:20px;
   padding:18px;
@@ -155,6 +156,7 @@ body{
 }
 
 .actions{
+  flex-wrap:wrap;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -243,6 +245,18 @@ body{
 }
 
 @media(max-width:768px){
+  .card-grid{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .sidebar{
+    transform:translateX(-110%);
+  }
+
+  .sidebar.show{
+    transform:translateX(0);
+  }
   .mobile-top{display:flex}
 
   .sidebar{
@@ -294,7 +308,7 @@ body{
 <div class="app" id="app">
   <div class="layout">
 
-    <div class="sidebar hide" id="sidebar">
+    <div class="sidebar" id="sidebar">
       <div class="logo">账号密码管家</div>
 
       <div class="section-title">
@@ -376,8 +390,26 @@ function savePlatforms(data){
 }
 
 function toggleSidebar(){
-  document.getElementById('sidebar').classList.toggle('hide');
+  const sidebar=document.getElementById('sidebar');
+  if(window.innerWidth<=768){
+    sidebar.classList.toggle('show');
+  }else{
+    sidebar.classList.toggle('hide');
+  }
 }
+
+document.addEventListener('click',function(e){
+  const sidebar=document.getElementById('sidebar');
+  const menuBtn=document.querySelector('.menu-btn');
+
+  if(window.innerWidth<=768){
+    const clickInside=sidebar.contains(e.target)||menuBtn.contains(e.target);
+
+    if(!clickInside && !sidebar.classList.contains('hide')){
+      sidebar.classList.add('hide');
+    }
+  }
+});
 
 function checkPassword(){
   const value=document.getElementById('password').value;
@@ -473,7 +505,7 @@ function renderAccounts(){
       <div class="info">
         <div><b>账号：</b>${item.account}</div>
         <div><b>密码：</b>${item.password}</div>
-        <div><b>绑定手机号/邮箱：</b>${item.contact}</div>
+        <div><b>备注：</b>${item.contact || '无备注'}</div>
       </div>
 
       <div class="actions">
@@ -542,7 +574,7 @@ function addAccount(){
   const password=prompt('密码');
   if(!password) return;
 
-  const contact=prompt('绑定手机号/邮箱');
+  const contact=prompt('备注（可留空）') || '';
   const website=prompt('网址（https://）');
   const logo=prompt('LOGO图片地址');
 
@@ -580,7 +612,7 @@ function editAccount(id){
   item.platform=prompt('平台名称',item.platform)||item.platform;
   item.account=prompt('账号',item.account)||item.account;
   item.password=prompt('密码',item.password)||item.password;
-  item.contact=prompt('绑定手机号/邮箱',item.contact)||item.contact;
+  item.contact=prompt('备注（可留空）',item.contact) ?? item.contact;
   item.website=prompt('网址',item.website)||item.website;
   item.logo=prompt('LOGO图片地址',item.logo)||item.logo;
 
