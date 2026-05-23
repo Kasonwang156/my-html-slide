@@ -1,589 +1,512 @@
-<script>
-  // 改成你自己的密码
-  const correctPassword = "123";
-  const password = prompt("请输入访问密码：");
-
-  if (password !== correctPassword) {
-    alert("密码错误，无法访问！");
-    document.body.innerHTML = "";
-    document.write("<h1 style='text-align:center;margin-top:20%;'>访问被拒绝</h1>");
-  }
-</script>
-
-
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>模型广场</title>
-
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family: "PingFang SC","Microsoft YaHei",sans-serif;
-    }
-
-    body{
-      background:#f5f7fb;
-      color:#333;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    .layout{
-      display:flex;
-      min-height:100vh;
-    }
-
-    /* 左侧筛选栏 */
-    .sidebar{
-      width:260px;
-      background:#f7fbff;
-      border-right:1px solid #e8edf5;
-      padding:20px 16px;
-    }
-
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:30px;
-      font-size:22px;
-      font-weight:700;
-    }
-
-    .logo img{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-    }
-
-    .filter-group{
-      margin-bottom:30px;
-    }
-
-    .filter-title{
-      font-size:15px;
-      font-weight:700;
-      margin-bottom:14px;
-      color:#444;
-    }
-
-    .tag-list{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .tag{
-      padding:8px 14px;
-      border-radius:10px;
-      background:#fff;
-      border:1px solid #e5eaf3;
-      font-size:13px;
-      cursor:pointer;
-      transition:.2s;
-    }
-
-    .tag:hover{
-      background:#eef5ff;
-      color:#2563eb;
-      border-color:#bfd4ff;
-    }
-
-    .tag.active{
-      background:#2563eb;
-      color:#fff;
-      border-color:#2563eb;
-    }
-
-    /* 主区域 */
-    .main{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-    }
-
-    /* 顶部导航 */
-    .header{
-      height:72px;
-      background:#fff;
-      border-bottom:1px solid #e9edf5;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 32px;
-    }
-
-    .nav{
-      display:flex;
-      gap:40px;
-      font-size:15px;
-      color:#666;
-    }
-
-    .nav a.active{
-      color:#2563eb;
-      font-weight:700;
-      position:relative;
-    }
-
-    .nav a.active::after{
-      content:"";
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:-24px;
-      height:3px;
-      border-radius:3px;
-      background:#2563eb;
-    }
-
-    .login-btn{
-      background:#2563eb;
-      color:#fff;
-      border:none;
-      padding:10px 22px;
-      border-radius:22px;
-      cursor:pointer;
-      font-size:14px;
-    }
-
-    /* 内容区域 */
-    .content{
-      padding:24px;
-    }
-
-    .banner{
-      height:74px;
-      border-radius:16px;
-      background:linear-gradient(90deg,#dff0ff,#ffe7f4);
-      margin-bottom:24px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 24px;
-    }
-
-    .banner h2{
-      font-size:20px;
-      margin-bottom:4px;
-    }
-
-    .banner p{
-      color:#666;
-      font-size:13px;
-    }
-
-    /* 搜索栏 */
-    .toolbar{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin-bottom:24px;
-    }
-
-    .search{
-      flex:1;
-      height:46px;
-      background:#fff;
-      border-radius:14px;
-      border:1px solid #e6ebf2;
-      padding:0 18px;
-      outline:none;
-      font-size:14px;
-    }
-
-    .copy-btn{
-      height:46px;
-      padding:0 22px;
-      border:none;
-      background:#2563eb;
-      color:#fff;
-      border-radius:12px;
-      cursor:pointer;
-    }
-
-    /* 卡片 */
-    .card-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:18px;
-    }
-
-    .card{
-      background:#fff;
-      border-radius:18px;
-      border:1px solid #e8edf5;
-      padding:18px;
-      transition:.25s;
-      cursor:pointer;
-    }
-
-    .card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 8px 30px rgba(0,0,0,.06);
-    }
-
-    .card-top{
-      display:flex;
-      justify-content:space-between;
-      margin-bottom:14px;
-    }
-
-    .model-title{
-      font-size:18px;
-      font-weight:700;
-      margin-bottom:8px;
-    }
-
-    .badge{
-      display:inline-block;
-      padding:3px 10px;
-      background:#eef4ff;
-      color:#2563eb;
-      border-radius:999px;
-      font-size:12px;
-      margin-left:8px;
-    }
-
-    .price{
-      font-size:13px;
-      color:#666;
-      line-height:1.9;
-    }
-
-    .desc{
-      margin-top:14px;
-      font-size:13px;
-      color:#777;
-      line-height:1.7;
-      height:44px;
-      overflow:hidden;
-    }
-
-    .card-footer{
-      margin-top:18px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-
-    .small-tags{
-      display:flex;
-      gap:8px;
-    }
-
-    .small-tag{
-      padding:4px 10px;
-      border-radius:8px;
-      background:#f4f6fa;
-      font-size:12px;
-      color:#666;
-    }
-
-    .status{
-      color:#10b981;
-      font-size:13px;
-    }
-
-    /* 分页 */
-    .pagination{
-      margin-top:34px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:12px;
-    }
-
-    .page{
-      width:36px;
-      height:36px;
-      border-radius:10px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:#fff;
-      border:1px solid #e6ebf2;
-      cursor:pointer;
-    }
-
-    .page.active{
-      background:#2563eb;
-      color:#fff;
-      border-color:#2563eb;
-    }
-
-    @media (max-width:1400px){
-      .card-grid{
-        grid-template-columns:repeat(3,1fr);
-      }
-    }
-
-    @media (max-width:1100px){
-      .sidebar{
-        display:none;
-      }
-
-      .card-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-    }
-
-    @media (max-width:768px){
-      .card-grid{
-        grid-template-columns:1fr;
-      }
-
-      .nav{
-        display:none;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>账号密码管家</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+  background:#f4f6fb;
+  color:#222;
+}
+.app{
+  display:none;
+  height:100vh;
+}
+.sidebar{
+  width:220px;
+  background:#fff;
+  border-right:1px solid #e5e7eb;
+  padding:20px 15px;
+  overflow:auto;
+}
+.layout{
+  display:flex;
+  height:100vh;
+}
+.logo{
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:30px;
+}
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+  font-size:16px;
+  font-weight:700;
+}
+.add-btn{
+  width:28px;
+  height:28px;
+  border:none;
+  border-radius:8px;
+  background:#2563eb;
+  color:#fff;
+  cursor:pointer;
+}
+.platform-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.platform-item{
+  padding:10px 14px;
+  border-radius:12px;
+  background:#f3f4f6;
+  cursor:pointer;
+  border:1px solid #e5e7eb;
+  font-size:14px;
+}
+.platform-item.active{
+  background:#2563eb;
+  color:#fff;
+}
+.main{
+  flex:1;
+  padding:25px;
+  overflow:auto;
+}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+.search{
+  width:320px;
+  height:45px;
+  border-radius:14px;
+  border:1px solid #d1d5db;
+  padding:0 15px;
+  outline:none;
+}
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:20px;
+}
+.card{
+  background:#fff;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+.card-top{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+.card-top img{
+  width:70px;
+  height:70px;
+  border-radius:18px;
+  object-fit:cover;
+  border:1px solid #eee;
+}
+.platform-name{
+  font-size:22px;
+  font-weight:700;
+}
+.info{
+  margin-top:18px;
+  line-height:2;
+  font-size:15px;
+}
+.actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:20px;
+}
+.link{
+  color:#2563eb;
+  text-decoration:none;
+  font-size:14px;
+}
+.btns{
+  display:flex;
+  gap:10px;
+}
+.small-btn{
+  border:none;
+  background:#f3f4f6;
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.pagination{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:35px;
+}
+.page-btn{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:10px;
+  background:#fff;
+  cursor:pointer;
+}
+.page-btn.active{
+  background:#2563eb;
+  color:#fff;
+}
+.login{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.login-box{
+  background:#fff;
+  width:360px;
+  border-radius:22px;
+  padding:30px;
+}
+.login-box h2{
+  margin-bottom:20px;
+}
+.login-box input{
+  width:100%;
+  height:45px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  padding:0 15px;
+  margin-bottom:15px;
+}
+.login-box button{
+  width:100%;
+  height:45px;
+  border:none;
+  border-radius:12px;
+  background:#2563eb;
+  color:#fff;
+  cursor:pointer;
+}
+</style>
 </head>
-
 <body>
 
-<div class="layout">
-
-  <!-- 左侧 -->
-  <aside class="sidebar">
-
-    <div class="logo">
-      <img src="https://picsum.photos/100" alt="">
-      小波API
-    </div>
-
-    <div class="filter-group">
-      <div class="filter-title">供应商</div>
-
-      <div class="tag-list">
-        <div class="tag active">全部供应商</div>
-        <div class="tag">OpenAI</div>
-        <div class="tag">Anthropic</div>
-        <div class="tag">Google</div>
-        <div class="tag">DeepSeek</div>
-        <div class="tag">Grok</div>
-        <div class="tag">Claude</div>
-        <div class="tag">Qwen</div>
-      </div>
-    </div>
-
-    <div class="filter-group">
-      <div class="filter-title">模型类型</div>
-
-      <div class="tag-list">
-        <div class="tag active">全部</div>
-        <div class="tag">对话</div>
-        <div class="tag">图像</div>
-        <div class="tag">视频</div>
-        <div class="tag">音频</div>
-      </div>
-    </div>
-
-    <div class="filter-group">
-      <div class="filter-title">标签</div>
-
-      <div class="tag-list">
-        <div class="tag">多模态</div>
-        <div class="tag">推理</div>
-        <div class="tag">代码</div>
-        <div class="tag">绘图</div>
-        <div class="tag">Agent</div>
-      </div>
-    </div>
-
-  </aside>
-
-  <!-- 主内容 -->
-  <main class="main">
-
-    <!-- 顶部导航 -->
-    <header class="header">
-
-      <nav class="nav">
-        <a href="#">首页</a>
-        <a href="#">控制台</a>
-        <a href="#" class="active">模型广场</a>
-        <a href="#">联系我们</a>
-        <a href="#">API文档</a>
-      </nav>
-
-      <button class="login-btn">登录</button>
-
-    </header>
-
-    <!-- 内容 -->
-    <section class="content">
-
-      <div class="banner">
-        <div>
-          <h2>全部供应商</h2>
-          <p>Total 486 models · 查看所有可用 AI 模型</p>
-        </div>
-
-        <div style="font-size:30px;">🎵</div>
-      </div>
-
-      <div class="toolbar">
-        <input class="search" placeholder="搜索模型名称..." />
-        <button class="copy-btn">复制</button>
-      </div>
-
-      <!-- 卡片 -->
-      <div class="card-grid">
-
-        <!-- 卡片 -->
-        <div class="card">
-
-          <div class="card-top">
-            <div>
-              <div class="model-title">
-                gemini-3.5-flash
-                <span class="badge">文本</span>
-              </div>
-
-              <div class="price">
-                输入价格：¥2.25/M<br/>
-                输出价格：¥13.50/M
-              </div>
-            </div>
-          </div>
-
-          <div class="desc">
-            Gemini 3.5 Flash 已正式发布，适用于多模态与快速响应场景。
-          </div>
-
-          <div class="card-footer">
-            <div class="small-tags">
-              <div class="small-tag">对话</div>
-              <div class="small-tag">工具</div>
-            </div>
-
-            <div class="status">● 按量计费</div>
-          </div>
-
-        </div>
-
-        <!-- 卡片 -->
-        <div class="card">
-
-          <div class="card-top">
-            <div>
-              <div class="model-title">
-                gpt-image-2
-                <span class="badge">绘图</span>
-              </div>
-
-              <div class="price">
-                输入价格：¥3.00/M<br/>
-                输出价格：¥18.00/M
-              </div>
-            </div>
-          </div>
-
-          <div class="desc">
-            GPT Image 2 支持高质量图像生成、编辑与风格迁移。
-          </div>
-
-          <div class="card-footer">
-            <div class="small-tags">
-              <div class="small-tag">绘图</div>
-              <div class="small-tag">AI</div>
-            </div>
-
-            <div class="status">● 按量计费</div>
-          </div>
-
-        </div>
-
-        <!-- 卡片 -->
-        <div class="card">
-
-          <div class="card-top">
-            <div>
-              <div class="model-title">
-                qwen-image-2
-                <span class="badge">视觉</span>
-              </div>
-
-              <div class="price">
-                输入价格：¥0.26/M<br/>
-                输出价格：¥1.20/M
-              </div>
-            </div>
-          </div>
-
-          <div class="desc">
-            Qwen-Image 2 系列支持高精度中文图像理解与生成。
-          </div>
-
-          <div class="card-footer">
-            <div class="small-tags">
-              <div class="small-tag">图像</div>
-              <div class="small-tag">视觉</div>
-            </div>
-
-            <div class="status">● 按量计费</div>
-          </div>
-
-        </div>
-
-        <!-- 卡片 -->
-        <div class="card">
-
-          <div class="card-top">
-            <div>
-              <div class="model-title">
-                claude-opus-4.7
-                <span class="badge">文本</span>
-              </div>
-
-              <div class="price">
-                输入价格：¥5.00/M<br/>
-                输出价格：¥25.00/M
-              </div>
-            </div>
-          </div>
-
-          <div class="desc">
-            Claude Opus 系列大模型，擅长复杂推理与长文本任务。
-          </div>
-
-          <div class="card-footer">
-            <div class="small-tags">
-              <div class="small-tag">推理</div>
-              <div class="small-tag">Agent</div>
-            </div>
-
-            <div class="status">● 按量计费</div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- 分页 -->
-      <div class="pagination">
-        <div class="page active">1</div>
-        <div class="page">2</div>
-        <div class="page">3</div>
-        <div class="page">4</div>
-        <div class="page">5</div>
-      </div>
-
-    </section>
-
-  </main>
-
+<div class="login" id="loginPage">
+  <div class="login-box">
+    <h2>请输入访问密码</h2>
+    <input type="password" id="password" placeholder="请输入密码">
+    <button onclick="checkPassword()">进入页面</button>
+  </div>
 </div>
+
+<div class="app" id="app">
+  <div class="layout">
+
+    <div class="sidebar">
+      <div class="logo">账号密码管家</div>
+
+      <div class="section-title">
+        <span>平台分类</span>
+        <button class="add-btn" onclick="addPlatform()">+</button>
+      </div>
+
+      <div class="platform-list" id="platformList"></div>
+    </div>
+
+    <div class="main">
+      <div class="topbar">
+        <input class="search" id="searchInput" placeholder="搜索账号或平台...">
+        <button class="add-btn" style="width:auto;padding:0 18px;height:42px" onclick="addAccount()">添加账号</button>
+      </div>
+
+      <div class="card-grid" id="cardGrid"></div>
+
+      <div class="pagination" id="pagination"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const PASSWORD = 'wangkai10..';
+const PAGE_SIZE = 6;
+let currentPage = 1;
+let currentPlatform = '全部';
+
+if(!localStorage.getItem('platforms')){
+  localStorage.setItem('platforms', JSON.stringify([
+    '全部','QQ','微信','抖音','淘宝'
+  ]));
+}
+
+if(!localStorage.getItem('accounts')){
+  localStorage.setItem('accounts', JSON.stringify([
+    {
+      id:Date.now(),
+      platform:'QQ',
+      account:'123456789',
+      password:'123456',
+      contact:'123456@qq.com',
+      website:'https://im.qq.com/',
+      logo:'https://q1.qlogo.cn/g?b=qq&nk=10000&s=640'
+    },
+    {
+      id:Date.now()+1,
+      platform:'微信',
+      account:'wx888888',
+      password:'888888',
+      contact:'138****8888',
+      website:'https://weixin.qq.com/',
+      logo:'https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico'
+    }
+  ]));
+}
+
+function getPlatforms(){
+  return JSON.parse(localStorage.getItem('platforms'));
+}
+
+function getAccounts(){
+  return JSON.parse(localStorage.getItem('accounts'));
+}
+
+function saveAccounts(data){
+  localStorage.setItem('accounts',JSON.stringify(data));
+}
+
+function savePlatforms(data){
+  localStorage.setItem('platforms',JSON.stringify(data));
+}
+
+function checkPassword(){
+  const value=document.getElementById('password').value;
+
+  if(value===PASSWORD){
+    document.getElementById('loginPage').style.display='none';
+    document.getElementById('app').style.display='block';
+    renderPlatforms();
+    renderAccounts();
+  }else{
+    alert('密码错误');
+    window.close();
+    location.href='about:blank';
+  }
+}
+
+function renderPlatforms(){
+  const list=document.getElementById('platformList');
+
+  list.innerHTML='';
+
+  getPlatforms().forEach(platform=>{
+    const div=document.createElement('div');
+    div.className='platform-item'+(platform===currentPlatform?' active':'');
+    div.innerHTML=`
+      ${platform}
+    `;
+
+    div.onclick=()=>{
+      currentPlatform=platform;
+      currentPage=1;
+      renderPlatforms();
+      renderAccounts();
+    };
+
+    div.oncontextmenu=(e)=>{
+      e.preventDefault();
+
+      if(platform==='全部') return;
+
+      if(confirm('删除平台？')){
+        let arr=getPlatforms().filter(p=>p!==platform);
+        savePlatforms(arr);
+        currentPlatform='全部';
+        renderPlatforms();
+        renderAccounts();
+      }
+    }
+
+    list.appendChild(div);
+  });
+}
+
+function renderAccounts(){
+  const keyword=document.getElementById('searchInput').value.toLowerCase();
+
+  let accounts=getAccounts().filter(item=>{
+    const matchPlatform=currentPlatform==='全部'||item.platform===currentPlatform;
+
+    const matchSearch=
+      item.platform.toLowerCase().includes(keyword)||
+      item.account.toLowerCase().includes(keyword);
+
+    return matchPlatform&&matchSearch;
+  });
+
+  const totalPages=Math.ceil(accounts.length/PAGE_SIZE)||1;
+
+  if(currentPage>totalPages) currentPage=1;
+
+  const start=(currentPage-1)*PAGE_SIZE;
+  const pageData=accounts.slice(start,start+PAGE_SIZE);
+
+  const grid=document.getElementById('cardGrid');
+
+  grid.innerHTML='';
+
+  pageData.forEach(item=>{
+    const card=document.createElement('div');
+    card.className='card';
+
+    card.innerHTML=`
+      <div class="card-top">
+        <a href="${item.website}" target="_blank">
+          <img src="${item.logo}">
+        </a>
+
+        <div>
+          <div class="platform-name">${item.platform}</div>
+        </div>
+      </div>
+
+      <div class="info">
+        <div><b>账号：</b>${item.account}</div>
+        <div><b>密码：</b>${item.password}</div>
+        <div><b>绑定手机号/邮箱：</b>${item.contact}</div>
+      </div>
+
+      <div class="actions">
+        <a class="link" href="${item.website}" target="_blank">访问网站</a>
+
+        <div class="btns">
+          <button class="small-btn" onclick="editAccount(${item.id})">编辑</button>
+          <button class="small-btn" onclick="deleteAccount(${item.id})">删除</button>
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  renderPagination(totalPages);
+}
+
+function renderPagination(total){
+  const pagination=document.getElementById('pagination');
+
+  pagination.innerHTML='';
+
+  for(let i=1;i<=total;i++){
+    const btn=document.createElement('button');
+
+    btn.className='page-btn'+(i===currentPage?' active':'');
+
+    btn.innerText=i;
+
+    btn.onclick=()=>{
+      currentPage=i;
+      renderAccounts();
+    };
+
+    pagination.appendChild(btn);
+  }
+}
+
+function addPlatform(){
+  const name=prompt('请输入平台名称');
+
+  if(!name) return;
+
+  const arr=getPlatforms();
+
+  if(arr.includes(name)){
+    alert('平台已存在');
+    return;
+  }
+
+  arr.push(name);
+
+  savePlatforms(arr);
+
+  renderPlatforms();
+}
+
+function addAccount(){
+  const platform=prompt('平台名称');
+  if(!platform) return;
+
+  const account=prompt('账号');
+  if(!account) return;
+
+  const password=prompt('密码');
+  if(!password) return;
+
+  const contact=prompt('绑定手机号/邮箱');
+  const website=prompt('网址（https://）');
+  const logo=prompt('LOGO图片地址');
+
+  const data=getAccounts();
+
+  data.unshift({
+    id:Date.now(),
+    platform,
+    account,
+    password,
+    contact,
+    website,
+    logo
+  });
+
+  saveAccounts(data);
+
+  if(!getPlatforms().includes(platform)){
+    const arr=getPlatforms();
+    arr.push(platform);
+    savePlatforms(arr);
+    renderPlatforms();
+  }
+
+  renderAccounts();
+}
+
+function editAccount(id){
+  const data=getAccounts();
+
+  const item=data.find(i=>i.id===id);
+
+  if(!item) return;
+
+  item.platform=prompt('平台名称',item.platform)||item.platform;
+  item.account=prompt('账号',item.account)||item.account;
+  item.password=prompt('密码',item.password)||item.password;
+  item.contact=prompt('绑定手机号/邮箱',item.contact)||item.contact;
+  item.website=prompt('网址',item.website)||item.website;
+  item.logo=prompt('LOGO图片地址',item.logo)||item.logo;
+
+  saveAccounts(data);
+
+  renderPlatforms();
+  renderAccounts();
+}
+
+function deleteAccount(id){
+  if(!confirm('确认删除？')) return;
+
+  let data=getAccounts().filter(i=>i.id!==id);
+
+  saveAccounts(data);
+
+  renderAccounts();
+}
+
+document.getElementById('searchInput').addEventListener('input',()=>{
+  currentPage=1;
+  renderAccounts();
+});
+</script>
 
 </body>
 </html>
