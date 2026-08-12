@@ -3,650 +3,350 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>账号密码管家</title>
+<title>教程中心</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:"PingFang SC","Microsoft YaHei",sans-serif;
-  background:#f4f6fb;
-  color:#222;
-}
-.app{display:none;height:100vh}
-.layout{display:flex;height:100vh;overflow:hidden}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.sidebar{
-  width:240px;
-  background:#fff;
-  border-right:1px solid #e5e7eb;
-  padding:20px 15px;
-  overflow:auto;
-  transition:.3s;
-}
-.sidebar.hide{
-  transform:translateX(-100%);
-  position:absolute;
-  z-index:99;
-  height:100%;
-}
-
-.logo{
-  font-size:24px;
-  font-weight:700;
-  margin-bottom:25px;
-}
-
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px;
-  font-size:16px;
-  font-weight:700;
-}
-
-.add-btn{
-  border:none;
-  background:#2563eb;
-  color:#fff;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-.platform-list{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-.platform-item{
-  padding:10px 14px;
-  background:#f3f4f6;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:14px;
-}
-
-.platform-item.active{
-  background:#2563eb;
-  color:#fff;
-}
-
-.main{
-  flex:1;
-  padding:18px;
-  overflow:auto;
-}
-
-.mobile-top{
-  display:none;
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:#f4f6fb;
-  padding-bottom:12px;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:15px;
-}
-
-.menu-btn{
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:#fff;
-  padding:0 16px;
-  height:42px;
-  font-size:14px;
-}
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:20px;
-}
-
-.search{
-  flex:1;
-  height:45px;
-  border-radius:14px;
-  border:1px solid #d1d5db;
-  padding:0 15px;
-  outline:none;
-}
-
-.add-account{
-  height:45px;
-  padding:0 18px;
-}
-
-.card-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
-  gap:15px;
-}
-
-.card{
-  min-height:230px;
-  background:#fff;
-  border-radius:20px;
-  padding:18px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
-
-.card-top{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.card-top img{
-  width:68px;
-  height:68px;
-  border-radius:16px;
-  object-fit:cover;
-  border:1px solid #eee;
-}
-
-.platform-name{
-  font-size:20px;
-  font-weight:700;
-}
-
-.info{
-  margin-top:14px;
-  line-height:2;
-  font-size:15px;
-  word-break:break-all;
-}
-
-.actions{
-  flex-wrap:wrap;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:16px;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.link{
-  color:#2563eb;
-  text-decoration:none;
-  font-size:14px;
-}
-
-.btns{
-  display:flex;
-  gap:10px;
-}
-
-.small-btn{
-  border:none;
-  background:#f3f4f6;
-  padding:8px 12px;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-.pagination{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:25px;
-  flex-wrap:wrap;
-}
-
-.page-btn{
-  width:40px;
-  height:40px;
-  border:none;
-  border-radius:10px;
-  background:#fff;
-  cursor:pointer;
-}
-
-.page-btn.active{
-  background:#2563eb;
-  color:#fff;
-}
-
-.login{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-
-.login-box{
-  background:#fff;
-  width:92%;
-  max-width:360px;
-  border-radius:22px;
-  padding:30px;
-}
-
-.login-box h2{margin-bottom:20px}
-
-.login-box input{
-  width:100%;
-  height:45px;
-  border-radius:12px;
-  border:1px solid #ddd;
-  padding:0 15px;
-  margin-bottom:15px;
-}
-
-.login-box button{
-  width:100%;
-  height:45px;
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:#fff;
-}
-
-@media(max-width:768px){
-  .card-grid{
-    display:flex;
-    flex-direction:column;
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.5;
   }
 
-  .sidebar{
-    transform:translateX(-110%);
+  /* ========== 顶部导航栏 ========== */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 60px;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 100;
   }
 
-  .sidebar.show{
-    transform:translateX(0);
-  }
-  .mobile-top{display:flex}
-
-  .sidebar{
-    position:fixed;
-    left:0;
-    top:0;
-    z-index:999;
-    height:100%;
-    box-shadow:0 0 20px rgba(0,0,0,.15);
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-decoration: none;
   }
 
-  .sidebar.hide{
-    transform:translateX(-110%);
+  .navbar-logo svg { width: 28px; height: 28px; }
+
+  .navbar-tabs {
+    display: flex;
+    gap: 48px;
   }
 
-  .topbar{
-    flex-direction:column;
+  .navbar-tab {
+    font-size: 16px;
+    color: #666;
+    cursor: pointer;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s;
+    text-decoration: none;
   }
 
-  .add-account{
-    width:100%;
+  .navbar-tab:hover { color: #1a1a1a; }
+
+  .navbar-tab.active {
+    color: #3370ff;
+    border-bottom-color: #3370ff;
+    font-weight: 600;
   }
 
-  .card{
-    padding:16px;
+  .navbar-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    cursor: pointer;
   }
 
-  .platform-name{
-    font-size:18px;
+  /* ========== 主内容区 ========== */
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 32px 40px 60px;
   }
 
-  .card-top img{
-    width:58px;
-    height:58px;
+  /* ========== 分区标题 ========== */
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 20px;
   }
-}
+
+  /* ========== 卡片网格 ========== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  /* ========== 卡片 ========== */
+  .card {
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  }
+
+  /* 封面图 - 横向 16:9 */
+  .card-cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #f0f0f0;
+    position: relative;
+  }
+
+  .card-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .card:hover .card-cover img {
+    transform: scale(1.05);
+  }
+
+  /* 卡片底部文字区 */
+  .card-body {
+    padding: 14px 16px 16px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.45;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 44px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #999;
+  }
+
+  .card-author {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .card-author-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    flex-shrink: 0;
+  }
+
+  .card-date {
+    flex-shrink: 0;
+  }
+
+  /* ========== 查看全部按钮 ========== */
+  .view-all-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 36px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+    background: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .view-all-btn:hover {
+    border-color: #3370ff;
+    color: #3370ff;
+  }
+
+  /* ========== 响应式 ========== */
+  @media (max-width: 1200px) {
+    .card-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .container { padding: 24px 20px 40px; }
+    .navbar { padding: 0 20px; }
+    .navbar-tabs { gap: 24px; }
+    .card-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  }
+
+  @media (max-width: 600px) {
+    .navbar-tabs { display: none; }
+    .card-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 18px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="login" id="loginPage">
-  <div class="login-box">
-    <h2>请输入访问密码</h2>
-    <input type="password" id="password" placeholder="请输入密码">
-    <button onclick="checkPassword()">进入页面</button>
+<!-- ===== 顶部导航栏 ===== -->
+<nav class="navbar">
+  <a href="#" class="navbar-logo">
+    <svg viewBox="0 0 32 32" fill="none">
+      <path d="M4 24 L16 4 L28 24 Z" fill="#3370ff"/>
+    </svg>
+    <span>MyGallery</span>
+  </a>
+  <div class="navbar-tabs">
+    <a class="navbar-tab active" href="#">全部</a>
+    <a class="navbar-tab" href="#">经验文章</a>
+    <a class="navbar-tab" href="#">视频教程</a>
+    <a class="navbar-tab" href="#">付费课程</a>
   </div>
-</div>
+  <div class="navbar-avatar"></div>
+</nav>
 
-<div class="app" id="app">
-  <div class="layout">
+<!-- ===== 主内容 ===== -->
+<div class="container">
 
-    <div class="sidebar" id="sidebar">
-      <div class="logo">账号密码管家</div>
-
-      <div class="section-title">
-        <span>平台分类</span>
-        <button class="add-btn" onclick="addPlatform()">+</button>
-      </div>
-
-      <div class="platform-list" id="platformList"></div>
-    </div>
-
-    <div class="main">
-
-      <div class="mobile-top">
-        <div style="font-size:20px;font-weight:700">账号密码管家</div>
-        <button class="menu-btn" onclick="toggleSidebar()">平台分类</button>
-      </div>
-      </div>
-      <div class="topbar">
-        <input class="search" id="searchInput" placeholder="搜索账号或平台...">
-        <button class="add-btn" style="width:auto;padding:0 18px;height:42px" onclick="addAccount()">添加账号</button>
-      </div>
-
-      <div class="card-grid" id="cardGrid"></div>
-
-      <div class="pagination" id="pagination"></div>
-    </div>
-
+  <!-- 最新文章分区 -->
+  <h2 class="section-title">最新文章</h2>
+  <div class="card-grid" id="grid-articles"></div>
+  <div class="view-all-wrap">
+    <a href="#" class="view-all-btn">查看全部</a>
   </div>
+
+  <!-- 视频教程分区 -->
+  <h2 class="section-title">视频教程</h2>
+  <div class="card-grid" id="grid-videos"></div>
+  <div class="view-all-wrap">
+    <a href="#" class="view-all-btn">查看全部</a>
+  </div>
+
 </div>
 
 <script>
-const PASSWORD = 'wangkai10..';
-const PAGE_SIZE = 6;
-let currentPage = 1;
-let currentPlatform = '全部';
+  // ============================================================
+  //  【只需要修改这里】所有内容都在这里配置
+  //  src    = 封面图地址（本地图片就和html放同一文件夹，填 "图片1.jpg"）
+  //  href   = 点击跳转的链接
+  //  title  = 卡片标题
+  //  author = 作者名称
+  //  date   = 日期
+  //  加卡片就复制一行，删卡片就删一行
+  // ============================================================
 
-window.addEventListener('storage',()=>{
-  renderPlatforms();
-  renderAccounts();
-});
+  // 最新文章
+  const articles = [
+    { src: "https://picsum.photos/seed/art1/640/360", href: "#", title: "AI图片模版功能上线，智能参考极速复刻", author: "官方教程组", date: "2025/12/30" },
+    { src: "https://picsum.photos/seed/art2/640/360", href: "#", title: "图像模型怎么选？模型选得好生图没烦恼", author: "官方教程组", date: "2025/12/30" },
+    { src: "https://picsum.photos/seed/art3/640/360", href: "#", title: "数字人功能正式上线！顶级模型免费资源", author: "官方教程组", date: "2025/12/08" },
+    { src: "https://picsum.photos/seed/art4/640/360", href: "#", title: "新版图像生成器使用指南，顶尖模型优质风格", author: "官方教程组", date: "2025/10/13" },
+  ];
 
-if(!localStorage.getItem('platforms')){
-  localStorage.setItem('platforms', JSON.stringify([
-    '全部','QQ','微信','抖音','淘宝'
-  ]));
-}
+  // 视频教程
+  const videos = [
+    { src: "https://picsum.photos/seed/vid1/640/360", href: "#", title: "AI精准控图3大技巧！含提示词与步骤", author: "官方教程组", date: "2025/12/30" },
+    { src: "https://picsum.photos/seed/vid2/640/360", href: "#", title: "邪门但有用！零基础3分钟速通出图", author: "官方教程组", date: "2025/12/30" },
+    { src: "https://picsum.photos/seed/vid3/640/360", href: "#", title: "小白也能做！AI批量生成双11电商促销素材", author: "官方教程组", date: "2025/11/07" },
+    { src: "https://picsum.photos/seed/vid4/640/360", href: "#", title: "无需Ps！一个AI搞定99%的线稿提取需求", author: "官方教程组", date: "2025/11/06" },
+  ];
 
-if(!localStorage.getItem('accounts')){
-  localStorage.setItem('accounts', JSON.stringify([
-    {
-      id:Date.now(),
-      platform:'QQ',
-      account:'123456789',
-      password:'123456',
-      contact:'123456@qq.com',
-      website:'https://im.qq.com/',
-      logo:'https://q1.qlogo.cn/g?b=qq&nk=10000&s=640'
-    },
-    {
-      id:Date.now()+1,
-      platform:'微信',
-      account:'wx888888',
-      password:'888888',
-      contact:'138****8888',
-      website:'https://weixin.qq.com/',
-      logo:'https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico'
-    }
-  ]));
-}
+  // 顶部导航栏（改名字和链接）
+  const navTabs = [
+    { name: "全部", href: "#", active: true },
+    { name: "经验文章", href: "#", active: false },
+    { name: "视频教程", href: "#", active: false },
+    { name: "付费课程", href: "#", active: false },
+  ];
 
-function getPlatforms(){
-  return JSON.parse(localStorage.getItem('platforms'));
-}
+  // 网站名称（改左上角Logo文字）
+  const siteName = "MyGallery";
 
-function getAccounts(){
-  return JSON.parse(localStorage.getItem('accounts'));
-}
+  // ============================================================
+  //  下面是自动生成代码，不需要修改
+  // ============================================================
 
-function saveAccounts(data){
-  localStorage.setItem('accounts',JSON.stringify(data));
-}
-
-function savePlatforms(data){
-  localStorage.setItem('platforms',JSON.stringify(data));
-}
-
-function toggleSidebar(){
-  const sidebar=document.getElementById('sidebar');
-  if(window.innerWidth<=768){
-    sidebar.classList.toggle('show');
-  }else{
-    sidebar.classList.toggle('hide');
-  }
-}
-
-document.addEventListener('click',function(e){
-  const sidebar=document.getElementById('sidebar');
-  const menuBtn=document.querySelector('.menu-btn');
-
-  if(window.innerWidth<=768){
-    const clickInside=sidebar.contains(e.target)||menuBtn.contains(e.target);
-
-    if(!clickInside && sidebar.classList.contains('show')){
-      sidebar.classList.remove('show');
-    }
-  }
-});
-
-function checkPassword(){
-  const value=document.getElementById('password').value;
-
-  if(value===PASSWORD){
-    document.getElementById('loginPage').style.display='none';
-    document.getElementById('app').style.display='block';
-    renderPlatforms();
-    renderAccounts();
-  }else{
-    alert('密码错误');
-    window.close();
-    location.href='about:blank';
-  }
-}
-
-function renderPlatforms(){
-  const list=document.getElementById('platformList');
-
-  list.innerHTML='';
-
-  getPlatforms().forEach(platform=>{
-    const div=document.createElement('div');
-    div.className='platform-item'+(platform===currentPlatform?' active':'');
-    div.innerHTML=`
-      ${platform}
-    `;
-
-    div.onclick=()=>{
-      currentPlatform=platform;
-      currentPage=1;
-      renderPlatforms();
-      renderAccounts();
-    };
-
-    div.oncontextmenu=(e)=>{
-      e.preventDefault();
-
-      if(platform==='全部') return;
-
-      if(confirm('删除平台？')){
-        let arr=getPlatforms().filter(p=>p!==platform);
-        savePlatforms(arr);
-        currentPlatform='全部';
-        renderPlatforms();
-        renderAccounts();
-      }
-    }
-
-    list.appendChild(div);
-  });
-}
-
-function renderAccounts(){
-  const keyword=document.getElementById('searchInput').value.toLowerCase();
-
-  let accounts=getAccounts().filter(item=>{
-    const matchPlatform=currentPlatform==='全部'||item.platform===currentPlatform;
-
-    const matchSearch=
-      item.platform.toLowerCase().includes(keyword)||
-      item.account.toLowerCase().includes(keyword);
-
-    return matchPlatform&&matchSearch;
-  });
-
-  const totalPages=Math.ceil(accounts.length/PAGE_SIZE)||1;
-
-  if(currentPage>totalPages) currentPage=1;
-
-  const start=(currentPage-1)*PAGE_SIZE;
-  const pageData=accounts.slice(start,start+PAGE_SIZE);
-
-  const grid=document.getElementById('cardGrid');
-
-  grid.innerHTML='';
-
-  pageData.forEach(item=>{
-    const card=document.createElement('div');
-    card.className='card';
-
-    card.innerHTML=`
-      <div class="card-top">
-        <a href="${item.website}" target="_blank">
-          <img src="${item.logo}">
-        </a>
-
-        <div>
-          <div class="platform-name">${item.platform}</div>
+  // 渲染卡片
+  function renderCards(containerId, items) {
+    const container = document.getElementById(containerId);
+    items.forEach(item => {
+      const card = document.createElement('a');
+      card.className = 'card';
+      card.href = item.href || '#';
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      card.innerHTML = `
+        <div class="card-cover">
+          <img src="${item.src}" alt="${item.title || ''}" loading="lazy">
         </div>
-      </div>
-
-      <div class="info">
-        <div><b>账号：</b>${item.account}</div>
-        <div><b>密码：</b>${item.password}</div>
-        <div><b>备注：</b>${item.contact || '无备注'}</div>
-      </div>
-
-      <div class="actions">
-        <a class="link" href="${item.website}" target="_blank">访问网站</a>
-
-        <div class="btns">
-          <button class="small-btn" onclick="editAccount(${item.id})">编辑</button>
-          <button class="small-btn" onclick="deleteAccount(${item.id})">删除</button>
+        <div class="card-body">
+          <div class="card-title">${item.title || ''}</div>
+          <div class="card-meta">
+            <span class="card-author">
+              <span class="card-author-avatar"></span>
+              ${item.author || ''}
+            </span>
+            <span class="card-date">${item.date || ''}</span>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+      container.appendChild(card);
+    });
+  }
 
-    grid.appendChild(card);
+  renderCards('grid-articles', articles);
+  renderCards('grid-videos', videos);
+
+  // 更新网站名称
+  document.querySelector('.navbar-logo span').textContent = siteName;
+
+  // 渲染导航栏
+  const tabsContainer = document.querySelector('.navbar-tabs');
+  tabsContainer.innerHTML = '';
+  navTabs.forEach(tab => {
+    const a = document.createElement('a');
+    a.className = 'navbar-tab' + (tab.active ? ' active' : '');
+    a.href = tab.href || '#';
+    a.textContent = tab.name;
+    tabsContainer.appendChild(a);
   });
-
-  renderPagination(totalPages);
-}
-
-function renderPagination(total){
-  const pagination=document.getElementById('pagination');
-
-  pagination.innerHTML='';
-
-  for(let i=1;i<=total;i++){
-    const btn=document.createElement('button');
-
-    btn.className='page-btn'+(i===currentPage?' active':'');
-
-    btn.innerText=i;
-
-    btn.onclick=()=>{
-      currentPage=i;
-      renderAccounts();
-    };
-
-    pagination.appendChild(btn);
-  }
-}
-
-function addPlatform(){
-  const name=prompt('请输入平台名称');
-
-  if(!name) return;
-
-  const arr=getPlatforms();
-
-  if(arr.includes(name)){
-    alert('平台已存在');
-    return;
-  }
-
-  arr.push(name);
-
-  savePlatforms(arr);
-
-  renderPlatforms();
-}
-
-function addAccount(){
-  const platform=prompt('平台名称');
-  if(!platform) return;
-
-  const account=prompt('账号');
-  if(!account) return;
-
-  const password=prompt('密码');
-  if(!password) return;
-
-  const contact=prompt('备注（可留空）') || '';
-  const website=prompt('网址（https://）');
-  const logo=prompt('LOGO图片地址');
-
-  const data=getAccounts();
-
-  data.unshift({
-    id:Date.now(),
-    platform,
-    account,
-    password,
-    contact,
-    website,
-    logo
-  });
-
-  saveAccounts(data);
-
-  if(!getPlatforms().includes(platform)){
-    const arr=getPlatforms();
-    arr.push(platform);
-    savePlatforms(arr);
-    renderPlatforms();
-  }
-
-  renderAccounts();
-}
-
-function editAccount(id){
-  const data=getAccounts();
-
-  const item=data.find(i=>i.id===id);
-
-  if(!item) return;
-
-  item.platform=prompt('平台名称',item.platform)||item.platform;
-  item.account=prompt('账号',item.account)||item.account;
-  item.password=prompt('密码',item.password)||item.password;
-  item.contact=prompt('备注（可留空）',item.contact) ?? item.contact;
-  item.website=prompt('网址',item.website)||item.website;
-  item.logo=prompt('LOGO图片地址',item.logo)||item.logo;
-
-  saveAccounts(data);
-
-  renderPlatforms();
-  renderAccounts();
-}
-
-function deleteAccount(id){
-  if(!confirm('确认删除？')) return;
-
-  let data=getAccounts().filter(i=>i.id!==id);
-
-  saveAccounts(data);
-
-  renderAccounts();
-}
-
-document.getElementById('searchInput').addEventListener('input',()=>{
-  currentPage=1;
-  renderAccounts();
-});
 </script>
 
 </body>
