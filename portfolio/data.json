@@ -1,0 +1,51 @@
+{
+    "userInfo": {
+        "avatarText": "A",
+        "userName": "AI创作作品集",
+        "bio": "初尝试AI绘图｜人物/包装/插画｜持续更新笔记封面作品",
+        "hashTags": ["#AI绘画", "#设计作品集", "#封面教程"]
+    },
+    "tabList": ["全部作品","人物角色","包装文创","插画封面","分镜短片"],
+    "workData": [
+        {
+            "tab": "全部作品",
+            "title": "韩系少女AI角色｜氛围感人像笔记封面",
+            "img": "assets/girl01.png",
+            "tag": "人物角色",
+            "like": "128",
+            "link": "work01.html"
+        },
+        {
+            "tab": "全部作品",
+            "title": "IP联名包装设计｜可爱风文具礼盒方案",
+            "img": "assets/pack01.png",
+            "tag": "包装文创",
+            "like": "96",
+            "link": "work02.html"
+        },
+        {
+            "tab": "人物角色",
+            "title": "复古胶片少女｜AI一键生成人像干货",
+            "img": "assets/girl02.png",
+            "tag": "人物角色",
+            "like": "210",
+            "link": "work03.html"
+        },
+        {
+            "tab": "插画封面",
+            "title": "治愈系插画封面｜小红书爆款图文模板",
+            "img": "assets/cover01.png",
+            "tag": "插画封面",
+            "like": "156",
+            "link": "work04.html"
+        },
+        {
+            "tab": "分镜短片",
+            "title": "15s短视频分镜脚本｜镜头构图教程",
+            "img": "assets/story01.png",
+            "tag": "分镜短片",
+            "like": "83",
+            "link": "work05.html"
+        }
+    ]
+}
